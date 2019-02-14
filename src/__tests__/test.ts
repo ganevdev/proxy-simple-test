@@ -41,7 +41,7 @@ describe('Function bodyCheck', () => {
   });
 });
 
-describe('Function proxyForTunnel', () => {
+describe('Function proxyForTunnel - Object', () => {
   test('proxyForTunnel login password', () => {
     expect(
       proxyForTunnel({
@@ -51,6 +51,83 @@ describe('Function proxyForTunnel', () => {
         password: 'myPass'
       })
     ).toEqual({
+      host: '146.185.209.244',
+      port: 9999,
+      proxyAuth: 'myLogin:myPass'
+    });
+  });
+  test('proxyForTunnel loginPass', () => {
+    expect(
+      proxyForTunnel({
+        ipAddress: '146.185.209.244',
+        port: 9999,
+        loginPass: 'myLogin:myPass'
+      })
+    ).toEqual({
+      host: '146.185.209.244',
+      port: 9999,
+      proxyAuth: 'myLogin:myPass'
+    });
+  });
+  test('proxyForTunnel loginPass login password', () => {
+    expect(
+      proxyForTunnel({
+        ipAddress: '146.185.209.244',
+        port: 9999,
+        loginPass: 'myLogin:myPass',
+        login: 'someMyLogin',
+        password: 'someMyPass'
+      })
+    ).toEqual({
+      host: '146.185.209.244',
+      port: 9999,
+      proxyAuth: 'myLogin:myPass'
+    });
+  });
+  test('proxyForTunnel NO login password', () => {
+    expect(
+      proxyForTunnel({
+        ipAddress: '146.185.209.244',
+        port: 9999
+      })
+    ).toEqual({
+      host: '146.185.209.244',
+      port: 9999
+    });
+  });
+  test('proxyForTunnel, NO login password, ipAddressPort in priority', () => {
+    expect(
+      proxyForTunnel({
+        ipAddress: '999.185.209.244',
+        port: 1111,
+        ipAddressPort: '146.185.209.244:9999'
+      })
+    ).toEqual({
+      host: '146.185.209.244',
+      port: 9999
+    });
+  });
+  test('proxyForTunnel ALL, ipAddressPort and loginPass in priority', () => {
+    expect(
+      proxyForTunnel({
+        ipAddress: '999.185.209.244',
+        port: 1111,
+        ipAddressPort: '146.185.209.244:9999',
+        loginPass: 'myLogin:myPass',
+        login: 'someMyLogin',
+        password: 'someMyPass'
+      })
+    ).toEqual({
+      host: '146.185.209.244',
+      port: 9999,
+      proxyAuth: 'myLogin:myPass'
+    });
+  });
+});
+
+describe('Function proxyForTunnel - String', () => {
+  test('proxyForTunnel login password', () => {
+    expect(proxyForTunnel('146.185.209.244:9999@myLogin:myPass')).toEqual({
       host: '146.185.209.244',
       port: 9999,
       proxyAuth: 'myLogin:myPass'

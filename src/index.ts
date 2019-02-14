@@ -71,9 +71,23 @@ interface ProxyForTunnel {
   proxyAuth?: string;
 }
 
-function proxyForTunnel(proxy: Proxy): ProxyForTunnel {
-  const proxyAuth = loginPass(proxy);
-  const proxyAddress = hostPort(proxy);
+function proxyFromString(proxy: Proxy | string): Proxy {
+  if (typeof proxy === 'string') {
+    return {
+      ipAddress: splitProxy(proxy).ipAddress,
+      port: splitProxy(proxy).port,
+      login: splitProxy(proxy).login,
+      password: splitProxy(proxy).password
+    };
+  } else {
+    return proxy;
+  }
+}
+
+function proxyForTunnel(proxy: Proxy | string): ProxyForTunnel {
+  const proxyAuth = loginPass(proxyFromString(proxy));
+  const proxyAddress = hostPort(proxyFromString(proxy));
+
   if (proxyAuth && proxyAuth !== '') {
     return {
       host: proxyAddress.host,
@@ -89,7 +103,7 @@ function proxyForTunnel(proxy: Proxy): ProxyForTunnel {
 }
 
 async function simpleProxyTest(
-  proxy: Proxy,
+  proxy: Proxy | string,
   link: string,
   options?: { inBody?: string; notInBody?: string }
 ): Promise<boolean> {

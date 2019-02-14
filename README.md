@@ -23,7 +23,9 @@ notInBody всегда в приоритете так как идет после
 npm i simple-proxy-test
 ```
 
-Examples:
+## Examples
+
+Proxy string:
 
 ```js
 const simpleProxyTest = require('simple-proxy-test');
@@ -34,5 +36,19 @@ simpleProxyTest(
   { inBody: '<h1>Example Domain</h1>', notInBody: '<h1>404</h1>' }
 );
 
-// return true
+// return true or false
+```
+
+Proxy object:
+
+```js
+const simpleProxyTest = require('simple-proxy-test');
+
+simpleProxyTest(
+  '123.123.2.42:8080@superLogin:superPassword',
+  'www.example.com',
+  { inBody: '<h1>Example Domain</h1>', notInBody: '<h1>404</h1>' }
+);
+
+// return true or false
 ```
