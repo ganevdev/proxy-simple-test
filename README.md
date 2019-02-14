@@ -22,6 +22,8 @@ The test never passes if the response code is NOT `200`.
 
 It is not necessary to use a proxy with `login` and `password`.
 
+At the moment - only HTTP over HTTP tunneling.
+
 ## Install
 
 ```bash
