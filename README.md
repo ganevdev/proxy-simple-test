@@ -1,26 +1,29 @@
-# Simple Proxy Test
+# Proxy Simple Test
 
-[![Build Status](https://travis-ci.com/Ganevru/simple-proxy-test.svg?branch=master)](https://travis-ci.com/Ganevru/simple-proxy-test)
-[![npm](https://img.shields.io/npm/v/simple-proxy-test.svg?style=flat-square)](http://npm.im/simple-proxy-test)
+[![Build Status](https://travis-ci.com/Ganevru/proxy-simple-test.svg?branch=master)](https://travis-ci.com/Ganevru/proxy-simple-test)
+[![npm](https://img.shields.io/npm/v/proxy-simple-test.svg?style=flat-square)](http://npm.im/proxy-simple-test)
 
-Очень простой тест прокси который возвращает true если тест пройден или false если нет.
+Simple proxy testing.
 
-Всю работу делает [node-tunnel](https://github.com/koichik/node-tunnel) и [got](https://github.com/sindresorhus/got) - это великолепная библиотека которая способна на очень многое, используете ее если вам нужно больше.
+All work is done by [node-tunnel](https://github.com/koichik/node-tunnel) and [got](https://github.com/sindresorhus/got) - this is a great library that can do a lot, use it if you need more.
 
-`simple-proxy-test` всегда возвращает true если тест пройден или false если не пройден.
-Первый аргумент это прокси в виде строки или объекта
-Второй - страница для проверки
+In order to make an object from a proxy string, I use my library - [split-proxy](https://github.com/Ganevru/split-proxy)
 
-условия для прохождения теста, по дефолту если get ответ 200 - то тест пройден
+`proxy-simple-test` - always returns `true` if test is passed or `false` if not.
 
-TODO нужно сделать regex - inBodyRegex
+The first argument is a proxy as a string or as an object (use what is convenient for you).
+The second argument is the webpage to check.
 
-inBody - если в body ответа есть этот текст то тест пройден
-notInBody - если в body ответа есть этот текст то тест НЕ пройден
-notInBody всегда в приоритете так как идет последним
+The third argument is optional; it checks the body of the response to a specific text.
+`inBody:` - if the body of the answer has this text then the test is passed.
+`notInBody:` - if the body of the answer has this text then the test is NOT passed.
+
+The test never passes if the response code is NOT `200`.
+
+## Install
 
 ```bash
-npm i simple-proxy-test
+npm i proxy-simple-test
 ```
 
 ## Examples
@@ -28,7 +31,7 @@ npm i simple-proxy-test
 Proxy string:
 
 ```js
-const simpleProxyTest = require('simple-proxy-test');
+const simpleProxyTest = require('proxy-simple-test');
 
 simpleProxyTest(
   '123.123.2.42:8080@superLogin:superPassword',
@@ -39,13 +42,48 @@ simpleProxyTest(
 // return true or false
 ```
 
-Proxy object:
+Proxy string, without defining text from the body, in this case returns `true` if response code is `200`:
 
 ```js
-const simpleProxyTest = require('simple-proxy-test');
+const simpleProxyTest = require('proxy-simple-test');
 
 simpleProxyTest(
   '123.123.2.42:8080@superLogin:superPassword',
+  'www.example.com'
+);
+
+// return true or false
+```
+
+Proxy object:
+
+```js
+const simpleProxyTest = require('proxy-simple-test');
+
+simpleProxyTest(
+  {
+    ipAddress: '123.123.2.42',
+    port: 8080,
+    login: 'superLogin',
+    password: 'superPassword'
+  },
+  'www.example.com',
+  { inBody: '<h1>Example Domain</h1>', notInBody: '<h1>404</h1>' }
+);
+
+// return true or false
+```
+
+Proxy object, another format, instead of `login` and `password`, you can write a `loginPass`, and instead of the `ipAddress` and `port` - `ipAddressPort`:
+
+```js
+const simpleProxyTest = require('proxy-simple-test');
+
+simpleProxyTest(
+  {
+    ipAddressPort: '123.123.2.42:8080',
+    loginPass: 'superLogin:superPassword'
+  },
   'www.example.com',
   { inBody: '<h1>Example Domain</h1>', notInBody: '<h1>404</h1>' }
 );
