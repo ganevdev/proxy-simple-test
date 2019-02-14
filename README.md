@@ -90,3 +90,21 @@ simpleProxyTest(
 
 // return true or false
 ```
+
+Proxy object, another format:
+
+```js
+const simpleProxyTest = require('proxy-simple-test');
+
+simpleProxyTest(
+  {
+    ipAddress: '123.123.2.42',
+    port: 8080,
+    loginPass: 'superLogin:superPassword'
+  },
+  'www.example.com',
+  { inBody: '<h1>Example Domain</h1>', notInBody: '<h1>404</h1>' }
+);
+
+// return true or false
+```

@@ -1,7 +1,7 @@
 {
   "name": "proxy-simple-test",
   "version": "1.0.0",
-  "description": "Creating a proxy string from objects.",
+  "description": "Simple proxy testing.",
   "keywords": [
     "proxy"
   ],
