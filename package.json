@@ -1,0 +1,70 @@
+{
+  "name": "simple-proxy-test",
+  "version": "1.0.0",
+  "description": "Creating a proxy string from objects.",
+  "keywords": [
+    "proxy"
+  ],
+  "homepage": "https://github.com/Ganevru/simple-proxy-test",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Ganevru/simple-proxy-test.git"
+  },
+  "license": "MIT",
+  "author": "Ivan Ganev <iganevru@gmail.com>",
+  "files": [
+    "dist"
+  ],
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "prebuild": "rimraf dist",
+    "build": "tsc",
+    "compile": "npm run prebuild && npm run lint && npm run jest && npm run build",
+    "jest": "jest",
+    "lint": "eslint --fix \"src/**/*.{ts,tsx,js,jsx}\"",
+    "pretty": "prettier --write \"src/**/*.{ts,tsx,js,jsx,json}\"",
+    "watch": "jest --watchAll"
+  },
+  "dependencies": {
+    "@types/node": "^10.12.24",
+    "got": "^9.6.0",
+    "split-proxy": "^1.0.2",
+    "ts-node": "^8.0.2",
+    "tunnel": "^0.0.6",
+    "typescript": "^3.3.3"
+  },
+  "devDependencies": {
+    "@babel/preset-env": "^7.3.1",
+    "@babel/preset-typescript": "^7.1.0",
+    "@types/jest": "^24.0.0",
+    "@typescript-eslint/eslint-plugin": "^1.3.0",
+    "@typescript-eslint/parser": "^1.3.0",
+    "@typescript-eslint/typescript-estree": "^1.3.0",
+    "babel-plugin-rewire": "^1.2.0",
+    "eslint": "^5.13.0",
+    "eslint-config-prettier": "^4.0.0",
+    "eslint-plugin-jest": "^22.2.2",
+    "eslint-plugin-prettier": "^3.0.1",
+    "husky": "^1.3.1",
+    "jest": "^24.1.0",
+    "lint-staged": "^8.1.3",
+    "prettier": "^1.16.4",
+    "rimraf": "^2.6.3"
+  },
+  "engines": {
+    "node": ">=8"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged && npm run compile"
+    }
+  },
+  "lint-staged": {
+    "src/**/*.{ts,tsx,js,jsx}": [
+      "npm run pretty",
+      "npm run lint",
+      "git add"
+    ]
+  }
+}
