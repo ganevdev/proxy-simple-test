@@ -1,6 +1,6 @@
 {
   "name": "proxy-simple-test",
-  "version": "1.0.2",
+  "version": "1.0.4",
   "description": "Simple proxy testing.",
   "keywords": [
     "proxy"
@@ -18,23 +18,23 @@
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "scripts": {
-    "prebuild": "rimraf dist",
+    "clean": "rimraf dist",
     "build": "tsc",
-    "compile": "npm run prebuild && npm run lint && npm run jest && npm run build",
+    "prepublishOnly": "npm run clean && npm run lint && npm run jest && npm run build",
     "jest": "jest",
     "lint": "eslint --fix \"src/**/*.{ts,tsx,js,jsx}\"",
     "pretty": "prettier --write \"src/**/*.{ts,tsx,js,jsx,json}\"",
     "watch": "jest --watchAll"
   },
   "dependencies": {
-    "@types/node": "^10.12.24",
     "got": "^9.6.0",
     "split-proxy": "^1.0.2",
-    "ts-node": "^8.0.2",
-    "tunnel": "^0.0.6",
-    "typescript": "^3.3.3"
+    "tunnel": "^0.0.6"
   },
   "devDependencies": {
+    "@types/node": "^10.12.24",
+    "ts-node": "^8.0.2",
+    "typescript": "^3.3.3",
     "@babel/preset-env": "^7.3.1",
     "@babel/preset-typescript": "^7.1.0",
     "@types/jest": "^24.0.0",
@@ -57,7 +57,7 @@
   },
   "husky": {
     "hooks": {
-      "pre-commit": "lint-staged && npm run compile"
+      "pre-commit": "lint-staged && npm run prepublishOnly"
     }
   },
   "lint-staged": {

@@ -8,4 +8,4 @@ node_js:
   - '9'
   - '8'
 script:
-  - npm run compile
+  - npm run prepublishOnly
