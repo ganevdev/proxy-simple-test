@@ -1,6 +1,35 @@
-import simpleProxyTest from '../index';
+// import simpleProxyTest from '../index';
 const bodyCheck = require('../index').__get__('bodyCheck');
 const proxyForTunnel = require('../index').__get__('proxyForTunnel');
+const proxyFromString = require('../index').__get__('proxyFromString');
+
+describe('proxyFromString', () => {
+  test('proxyFromString string', () => {
+    expect(
+      proxyFromString('123.123.2.42:8080@superLogin:superPassword')
+    ).toEqual({
+      ipAddress: '123.123.2.42',
+      port: '8080',
+      login: 'superLogin',
+      password: 'superPassword'
+    });
+  });
+  test('proxyFromString object', () => {
+    expect(
+      proxyFromString({
+        ipAddress: '123.123.2.42',
+        port: '8080',
+        login: 'superLogin',
+        password: 'superPassword'
+      })
+    ).toEqual({
+      ipAddress: '123.123.2.42',
+      port: '8080',
+      login: 'superLogin',
+      password: 'superPassword'
+    });
+  });
+});
 
 describe('Function bodyCheck', () => {
   test('bodyCheck inBody true', () => {

@@ -112,7 +112,8 @@ async function simpleProxyTest(
   });
   try {
     const req = await got(link, {
-      agent: tunnelingAgent
+      agent: tunnelingAgent,
+      timeout: 5000
     });
     if (req.statusCode === 200) {
       return bodyCheck(req.body, options);
@@ -120,19 +121,28 @@ async function simpleProxyTest(
       return false;
     }
   } catch (error) {
+    // console.error('error: ' + error);
     return false;
   }
   //
 }
 // (async () => {
-//   console.log(
+//   await console.log(
 //     await simpleProxyTest(
 //       {
-//         ipAddress: '146.185.209.244',
-//         port: 10290,
+//         ipAddress: '146.185.209.255',
+//         port: 8080,
 //         login: 'myLogin',
 //         password: 'myPass'
 //       },
+//       'example.com'
+//     )
+//   );
+// })();
+// (async () => {
+//   await console.log(
+//     await simpleProxyTest(
+//       '146.185.209.255:8080@myLogin:myPass',
 //       'example.com'
 //     )
 //   );

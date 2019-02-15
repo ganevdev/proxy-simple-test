@@ -37,11 +37,13 @@ Proxy string:
 ```js
 const simpleProxyTest = require('proxy-simple-test');
 
-simpleProxyTest(
-  '123.123.2.42:8080@superLogin:superPassword',
-  'www.example.com',
-  { inBody: '<h1>Example Domain</h1>', notInBody: '<h1>404</h1>' }
-);
+(async () => {
+  await simpleProxyTest(
+    '123.123.2.42:8080@superLogin:superPassword',
+    'www.example.com',
+    { inBody: '<h1>Example Domain</h1>', notInBody: '<h1>404</h1>' }
+  );
+})();
 
 // return true or false
 ```
@@ -51,10 +53,12 @@ Proxy string, without defining text from the body, in this case returns `true` i
 ```js
 const simpleProxyTest = require('proxy-simple-test');
 
-simpleProxyTest(
-  '123.123.2.42:8080@superLogin:superPassword',
-  'www.example.com'
-);
+(async () => {
+  await simpleProxyTest(
+    '123.123.2.42:8080@superLogin:superPassword',
+    'www.example.com'
+  );
+})();
 
 // return true or false
 ```
@@ -64,16 +68,18 @@ Proxy object:
 ```js
 const simpleProxyTest = require('proxy-simple-test');
 
-simpleProxyTest(
-  {
-    ipAddress: '123.123.2.42',
-    port: 8080,
-    login: 'superLogin',
-    password: 'superPassword'
-  },
-  'www.example.com',
-  { inBody: '<h1>Example Domain</h1>', notInBody: '<h1>404</h1>' }
-);
+(async () => {
+  await simpleProxyTest(
+    {
+      ipAddress: '123.123.2.42',
+      port: 8080,
+      login: 'superLogin',
+      password: 'superPassword'
+    },
+    'www.example.com',
+    { inBody: '<h1>Example Domain</h1>', notInBody: '<h1>404</h1>' }
+  );
+})();
 
 // return true or false
 ```
@@ -83,14 +89,16 @@ Proxy object, another format, instead of `login` and `password`, you can write a
 ```js
 const simpleProxyTest = require('proxy-simple-test');
 
-simpleProxyTest(
-  {
-    ipAddressPort: '123.123.2.42:8080',
-    loginPass: 'superLogin:superPassword'
-  },
-  'www.example.com',
-  { inBody: '<h1>Example Domain</h1>', notInBody: '<h1>404</h1>' }
-);
+(async () => {
+  await simpleProxyTest(
+    {
+      ipAddressPort: '123.123.2.42:8080',
+      loginPass: 'superLogin:superPassword'
+    },
+    'www.example.com',
+    { inBody: '<h1>Example Domain</h1>', notInBody: '<h1>404</h1>' }
+  );
+})();
 
 // return true or false
 ```
@@ -100,15 +108,17 @@ Proxy object, another format:
 ```js
 const simpleProxyTest = require('proxy-simple-test');
 
-simpleProxyTest(
-  {
-    ipAddress: '123.123.2.42',
-    port: 8080,
-    loginPass: 'superLogin:superPassword'
-  },
-  'www.example.com',
-  { inBody: '<h1>Example Domain</h1>', notInBody: '<h1>404</h1>' }
-);
+(async () => {
+  await simpleProxyTest(
+    {
+      ipAddress: '123.123.2.42',
+      port: 8080,
+      loginPass: 'superLogin:superPassword'
+    },
+    'www.example.com',
+    { inBody: '<h1>Example Domain</h1>', notInBody: '<h1>404</h1>' }
+  );
+})();
 
 // return true or false
 ```
@@ -118,14 +128,16 @@ Of course, you can use without a password and login:
 ```js
 const simpleProxyTest = require('proxy-simple-test');
 
-simpleProxyTest(
-  {
-    ipAddress: '123.123.2.42',
-    port: 8080
-  },
-  'www.example.com',
-  { inBody: '<h1>Example Domain</h1>', notInBody: '<h1>404</h1>' }
-);
+(async () => {
+  await simpleProxyTest(
+    {
+      ipAddress: '123.123.2.42',
+      port: 8080
+    },
+    'www.example.com',
+    { inBody: '<h1>Example Domain</h1>', notInBody: '<h1>404</h1>' }
+  );
+})();
 
 // return true or false
 ```
