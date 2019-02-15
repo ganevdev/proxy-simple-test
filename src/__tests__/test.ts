@@ -1,4 +1,4 @@
-// import simpleProxyTest from '../index';
+import simpleProxyTest from '../index';
 const bodyCheck = require('../index').__get__('bodyCheck');
 const proxyForTunnel = require('../index').__get__('proxyForTunnel');
 
@@ -201,17 +201,3 @@ describe('Function proxyForTunnel - String', () => {
     });
   });
 });
-
-// test('simpleProxyTest - www.example.com', async () => {
-//   expect(
-//     await simpleProxyTest(
-//       {
-//         ipAddress: '146.185.209.240',
-//         port: 9999,
-//         login: 'myLogin',
-//         password: 'myPass'
-//       },
-//       'www.example.com'
-//     )
-//   ).toBe(true);
-// });
