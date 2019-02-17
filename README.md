@@ -15,8 +15,12 @@ The first argument is a proxy as a string or as an object (use what is convenien
 The second argument is the webpage to check.
 
 The third argument is optional; it checks the body of the response to a specific text.
-`inBody:` - if the body of the answer has this text then the test is passed.
-`notInBody:` - if the body of the answer has this text then the test is NOT passed.
+
+`inBody` - if body of the answer has this text then the test is passed.
+
+`notInBody` - if body of the answer has this text then the test is NOT passed.
+
+If third argument is a string, then it is automatically considered as `inBody`.
 
 The test never passes if the response code is NOT `200`.
 
