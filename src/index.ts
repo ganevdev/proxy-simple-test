@@ -11,10 +11,24 @@ interface Proxy {
   loginPass?: string;
 }
 
-function bodyCheck(
-  reqBody: string,
-  options?: { inBody?: string; notInBody?: string }
-): boolean {
+interface Options {
+  inBody?: string;
+  notInBody?: string;
+}
+
+function optionFromString(options?: Options | string): Options | undefined {
+  if (options) {
+    if (typeof options === 'string') {
+      return {
+        inBody: options
+      };
+    } else {
+      return options;
+    }
+  }
+}
+
+function bodyCheck(reqBody: string, options?: Options): boolean {
   if (options) {
     if (options.notInBody && reqBody.includes(options.notInBody)) {
       return false;
@@ -105,7 +119,7 @@ function proxyForTunnel(proxy: Proxy | string): ProxyForTunnel {
 async function simpleProxyTest(
   proxy: Proxy | string,
   link: string,
-  options?: { inBody?: string; notInBody?: string }
+  options?: Options
 ): Promise<boolean> {
   const tunnelingAgent = await tunnel.httpOverHttp({
     proxy: proxyForTunnel(proxy)
@@ -116,7 +130,7 @@ async function simpleProxyTest(
       timeout: 5000
     });
     if (req.statusCode === 200) {
-      return bodyCheck(req.body, options);
+      return bodyCheck(req.body, optionFromString(options));
     } else {
       return false;
     }

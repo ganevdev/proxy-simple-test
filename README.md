@@ -48,6 +48,22 @@ const simpleProxyTest = require('proxy-simple-test');
 // return true or false
 ```
 
+The third argument can be a string, then it will automatically be used as `inBody`.
+
+```js
+const simpleProxyTest = require('proxy-simple-test');
+
+(async () => {
+  await simpleProxyTest(
+    '123.123.2.42:8080@superLogin:superPassword',
+    'www.example.com',
+    '<h1>Example Domain</h1>'
+  );
+})();
+
+// return true or false
+```
+
 Proxy string, without defining text from the body, in this case returns `true` if response code is `200`:
 
 ```js

@@ -2,6 +2,21 @@
 const bodyCheck = require('../index').__get__('bodyCheck');
 const proxyForTunnel = require('../index').__get__('proxyForTunnel');
 const proxyFromString = require('../index').__get__('proxyFromString');
+const optionFromString = require('../index').__get__('optionFromString');
+
+describe('optionFromString', () => {
+  test('optionFromString string', () => {
+    expect(optionFromString('test text')).toEqual({ inBody: 'test text' });
+  });
+  test('optionFromString obj', () => {
+    expect(optionFromString({ inBody: 'test text' })).toEqual({
+      inBody: 'test text'
+    });
+  });
+  test('optionFromString undefined', () => {
+    expect(optionFromString(undefined)).toBe(undefined);
+  });
+});
 
 describe('proxyFromString', () => {
   test('proxyFromString string', () => {
