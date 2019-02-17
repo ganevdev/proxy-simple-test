@@ -119,7 +119,7 @@ function proxyForTunnel(proxy: Proxy | string): ProxyForTunnel {
 async function simpleProxyTest(
   proxy: Proxy | string,
   link: string,
-  options?: Options
+  options?: Options | string
 ): Promise<boolean> {
   const tunnelingAgent = await tunnel.httpOverHttp({
     proxy: proxyForTunnel(proxy)
