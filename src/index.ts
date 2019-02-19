@@ -116,7 +116,7 @@ function proxyForTunnel(proxy: Proxy | string): ProxyForTunnel {
   }
 }
 
-async function simpleProxyTest(
+async function proxySimpleTest(
   proxy: Proxy | string,
   link: string,
   options?: Options | string
@@ -142,7 +142,7 @@ async function simpleProxyTest(
 }
 // (async () => {
 //   await console.log(
-//     await simpleProxyTest(
+//     await proxySimpleTest(
 //       {
 //         ipAddress: '146.185.209.255',
 //         port: 8080,
@@ -155,12 +155,12 @@ async function simpleProxyTest(
 // })();
 // (async () => {
 //   await console.log(
-//     await simpleProxyTest(
+//     await proxySimpleTest(
 //       '146.185.209.255:8080@myLogin:myPass',
 //       'example.com'
 //     )
 //   );
 // })();
 
-module.exports = simpleProxyTest;
-export default simpleProxyTest;
+module.exports = proxySimpleTest;
+export default proxySimpleTest;

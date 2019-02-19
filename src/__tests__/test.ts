@@ -1,4 +1,4 @@
-// import simpleProxyTest from '../index';
+// import proxySimpleTest from '../index';
 const bodyCheck = require('../index').__get__('bodyCheck');
 const proxyForTunnel = require('../index').__get__('proxyForTunnel');
 const proxyFromString = require('../index').__get__('proxyFromString');

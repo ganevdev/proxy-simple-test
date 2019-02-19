@@ -39,10 +39,10 @@ npm i proxy-simple-test
 Proxy string:
 
 ```js
-const simpleProxyTest = require('proxy-simple-test');
+const proxySimpleTest = require('proxy-simple-test');
 
 (async () => {
-  await simpleProxyTest(
+  await proxySimpleTest(
     '123.123.2.42:8080@superLogin:superPassword',
     'www.example.com',
     { inBody: '<h1>Example Domain</h1>', notInBody: '<h1>404</h1>' }
@@ -55,10 +55,10 @@ const simpleProxyTest = require('proxy-simple-test');
 The third argument can be a string, then it will automatically be used as `inBody`.
 
 ```js
-const simpleProxyTest = require('proxy-simple-test');
+const proxySimpleTest = require('proxy-simple-test');
 
 (async () => {
-  await simpleProxyTest(
+  await proxySimpleTest(
     '123.123.2.42:8080@superLogin:superPassword',
     'www.example.com',
     '<h1>Example Domain</h1>'
@@ -71,10 +71,10 @@ const simpleProxyTest = require('proxy-simple-test');
 Proxy string, without defining text from the body, in this case returns `true` if response code is `200`:
 
 ```js
-const simpleProxyTest = require('proxy-simple-test');
+const proxySimpleTest = require('proxy-simple-test');
 
 (async () => {
-  await simpleProxyTest(
+  await proxySimpleTest(
     '123.123.2.42:8080@superLogin:superPassword',
     'www.example.com'
   );
@@ -86,10 +86,10 @@ const simpleProxyTest = require('proxy-simple-test');
 Proxy object:
 
 ```js
-const simpleProxyTest = require('proxy-simple-test');
+const proxySimpleTest = require('proxy-simple-test');
 
 (async () => {
-  await simpleProxyTest(
+  await proxySimpleTest(
     {
       ipAddress: '123.123.2.42',
       port: 8080,
@@ -107,10 +107,10 @@ const simpleProxyTest = require('proxy-simple-test');
 Proxy object, another format, instead of `login` and `password`, you can write a `loginPass`, and instead of the `ipAddress` and `port` - `ipAddressPort`:
 
 ```js
-const simpleProxyTest = require('proxy-simple-test');
+const proxySimpleTest = require('proxy-simple-test');
 
 (async () => {
-  await simpleProxyTest(
+  await proxySimpleTest(
     {
       ipAddressPort: '123.123.2.42:8080',
       loginPass: 'superLogin:superPassword'
@@ -126,10 +126,10 @@ const simpleProxyTest = require('proxy-simple-test');
 Proxy object, another format:
 
 ```js
-const simpleProxyTest = require('proxy-simple-test');
+const proxySimpleTest = require('proxy-simple-test');
 
 (async () => {
-  await simpleProxyTest(
+  await proxySimpleTest(
     {
       ipAddress: '123.123.2.42',
       port: 8080,
@@ -146,10 +146,10 @@ const simpleProxyTest = require('proxy-simple-test');
 Of course, you can use without a password and login:
 
 ```js
-const simpleProxyTest = require('proxy-simple-test');
+const proxySimpleTest = require('proxy-simple-test');
 
 (async () => {
-  await simpleProxyTest(
+  await proxySimpleTest(
     {
       ipAddress: '123.123.2.42',
       port: 8080
