@@ -119,13 +119,22 @@ function proxyForTunnel(proxy: Proxy | string): ProxyForTunnel {
 async function proxySimpleTest(
   proxy: Proxy | string,
   link: string,
-  options?: Options | string
+  options: Options | string,
+  gotLib: {
+    get(
+      key: string,
+      {
+        agent: { proxy: ProxyForTunnel },
+        timeout: number
+      }
+    ): Promise<{ body: string; statusCode: number }>;
+  } = got
 ): Promise<boolean> {
   const tunnelingAgent = await tunnel.httpOverHttp({
     proxy: proxyForTunnel(proxy)
   });
   try {
-    const req = await got(link, {
+    const req = await gotLib.get(link, {
       agent: tunnelingAgent,
       timeout: 5000
     });
