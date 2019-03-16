@@ -1,8 +1,8 @@
 import got from 'got';
-import tunnel from 'tunnel';
 import splitProxy from 'split-proxy';
+import tunnel from 'tunnel';
 
-interface Proxy {
+interface ProxyObject {
   ipAddress?: string;
   port?: number | string;
   ipAddressPort?: string;
@@ -25,6 +25,8 @@ function optionFromString(options?: Options | string): Options | undefined {
     } else {
       return options;
     }
+  } else {
+    return undefined;
   }
 }
 
@@ -42,7 +44,7 @@ function bodyCheck(reqBody: string, options?: Options): boolean {
   }
 }
 
-function loginPass(proxy: Proxy): string {
+function loginPass(proxy: ProxyObject): string {
   if (
     proxy.loginPass &&
     proxy.loginPass !== '' &&
@@ -61,7 +63,7 @@ function loginPass(proxy: Proxy): string {
   return '';
 }
 
-function hostPort(proxy: Proxy): { host: string; port: number } {
+function hostPort(proxy: ProxyObject): { host: string; port: number } {
   if (proxy.ipAddressPort && proxy.ipAddressPort !== '') {
     return {
       host: splitProxy(proxy.ipAddressPort).ipAddress,
@@ -85,7 +87,7 @@ interface ProxyForTunnel {
   proxyAuth?: string;
 }
 
-function proxyFromString(proxy: Proxy | string): Proxy {
+function proxyFromString(proxy: ProxyObject | string): ProxyObject {
   if (typeof proxy === 'string') {
     return {
       ipAddress: splitProxy(proxy).ipAddress,
@@ -98,7 +100,7 @@ function proxyFromString(proxy: Proxy | string): Proxy {
   }
 }
 
-function proxyForTunnel(proxy: Proxy | string): ProxyForTunnel {
+function proxyForTunnel(proxy: ProxyObject | string): ProxyForTunnel {
   const proxyAuth = loginPass(proxyFromString(proxy));
   const proxyAddress = hostPort(proxyFromString(proxy));
 
@@ -117,18 +119,10 @@ function proxyForTunnel(proxy: Proxy | string): ProxyForTunnel {
 }
 
 async function proxySimpleTest(
-  proxy: Proxy | string,
+  proxy: ProxyObject | string,
   link: string,
   options: Options | string,
-  gotLib: {
-    get(
-      key: string,
-      {
-        agent: { proxy: ProxyForTunnel },
-        timeout: number
-      }
-    ): Promise<{ body: string; statusCode: number }>;
-  } = got
+  gotLib: any = got
 ): Promise<boolean> {
   const tunnelingAgent = await tunnel.httpOverHttp({
     proxy: proxyForTunnel(proxy)
