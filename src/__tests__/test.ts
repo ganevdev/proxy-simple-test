@@ -245,3 +245,60 @@ describe('Function proxyForTunnel - String', () => {
     });
   });
 });
+
+describe('Function proxyForTunnel - Object wish empty', () => {
+  test('proxyForTunnel empty login password', () => {
+    expect(
+      proxyForTunnel({
+        ipAddress: '146.185.209.244',
+        port: 9999,
+        login: '',
+        password: ''
+      })
+    ).toEqual({
+      host: '146.185.209.244',
+      port: 9999
+    });
+  });
+  test('proxyForTunnel empty loginPass', () => {
+    expect(
+      proxyForTunnel({
+        ipAddress: '146.185.209.244',
+        port: 9999,
+        loginPass: ''
+      })
+    ).toEqual({
+      host: '146.185.209.244',
+      port: 9999
+    });
+  });
+  test('proxyForTunnel empty loginPass login password', () => {
+    expect(
+      proxyForTunnel({
+        ipAddress: '146.185.209.244',
+        port: 9999,
+        loginPass: '',
+        login: '',
+        password: ''
+      })
+    ).toEqual({
+      host: '146.185.209.244',
+      port: 9999
+    });
+  });
+  test('proxyForTunnel ALL, ipAddressPort and loginPass in priority, empty login and pass', () => {
+    expect(
+      proxyForTunnel({
+        ipAddress: '999.185.209.244',
+        port: 1111,
+        ipAddressPort: '146.185.209.244:9999',
+        loginPass: '',
+        login: '',
+        password: ''
+      })
+    ).toEqual({
+      host: '146.185.209.244',
+      port: 9999
+    });
+  });
+});
