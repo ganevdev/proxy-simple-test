@@ -4,6 +4,8 @@ const proxyForTunnel = require('../index').__get__('proxyForTunnel');
 const proxyFromString = require('../index').__get__('proxyFromString');
 const optionFromString = require('../index').__get__('optionFromString');
 
+/* eslint-disable @typescript-eslint/explicit-function-return-type */
+
 describe('optionFromString', () => {
   test('optionFromString string', () => {
     expect(optionFromString('test text')).toEqual({ inBody: 'test text' });
@@ -23,7 +25,7 @@ describe('proxyFromString', () => {
     expect(
       proxyFromString('123.123.2.42:8080@superLogin:superPassword')
     ).toEqual({
-      ipAddress: '123.123.2.42',
+      host: '123.123.2.42',
       port: '8080',
       login: 'superLogin',
       password: 'superPassword'
@@ -32,13 +34,13 @@ describe('proxyFromString', () => {
   test('proxyFromString object', () => {
     expect(
       proxyFromString({
-        ipAddress: '123.123.2.42',
+        host: '123.123.2.42',
         port: '8080',
         login: 'superLogin',
         password: 'superPassword'
       })
     ).toEqual({
-      ipAddress: '123.123.2.42',
+      host: '123.123.2.42',
       port: '8080',
       login: 'superLogin',
       password: 'superPassword'
@@ -89,7 +91,7 @@ describe('Function proxyForTunnel - Object', () => {
   test('proxyForTunnel login password', () => {
     expect(
       proxyForTunnel({
-        ipAddress: '146.185.209.244',
+        host: '146.185.209.244',
         port: 9999,
         login: 'myLogin',
         password: 'myPass'
@@ -103,7 +105,7 @@ describe('Function proxyForTunnel - Object', () => {
   test('proxyForTunnel loginPass', () => {
     expect(
       proxyForTunnel({
-        ipAddress: '146.185.209.244',
+        host: '146.185.209.244',
         port: 9999,
         loginPass: 'myLogin:myPass'
       })
@@ -116,7 +118,7 @@ describe('Function proxyForTunnel - Object', () => {
   test('proxyForTunnel loginPass login password', () => {
     expect(
       proxyForTunnel({
-        ipAddress: '146.185.209.244',
+        host: '146.185.209.244',
         port: 9999,
         loginPass: 'myLogin:myPass',
         login: 'someMyLogin',
@@ -131,7 +133,7 @@ describe('Function proxyForTunnel - Object', () => {
   test('proxyForTunnel NO login password', () => {
     expect(
       proxyForTunnel({
-        ipAddress: '146.185.209.244',
+        host: '146.185.209.244',
         port: 9999
       })
     ).toEqual({
@@ -139,24 +141,24 @@ describe('Function proxyForTunnel - Object', () => {
       port: 9999
     });
   });
-  test('proxyForTunnel, NO login password, ipAddressPort in priority', () => {
+  test('proxyForTunnel, NO login password, hostPort in priority', () => {
     expect(
       proxyForTunnel({
-        ipAddress: '999.185.209.244',
+        host: '999.185.209.244',
         port: 1111,
-        ipAddressPort: '146.185.209.244:9999'
+        hostPort: '146.185.209.244:9999'
       })
     ).toEqual({
       host: '146.185.209.244',
       port: 9999
     });
   });
-  test('proxyForTunnel ALL, ipAddressPort and loginPass in priority', () => {
+  test('proxyForTunnel ALL, hostPort and loginPass in priority', () => {
     expect(
       proxyForTunnel({
-        ipAddress: '999.185.209.244',
+        host: '999.185.209.244',
         port: 1111,
-        ipAddressPort: '146.185.209.244:9999',
+        hostPort: '146.185.209.244:9999',
         loginPass: 'myLogin:myPass',
         login: 'someMyLogin',
         password: 'someMyPass'
@@ -180,7 +182,7 @@ describe('Function proxyForTunnel - String', () => {
   test('proxyForTunnel loginPass', () => {
     expect(
       proxyForTunnel({
-        ipAddress: '146.185.209.244',
+        host: '146.185.209.244',
         port: 9999,
         loginPass: 'myLogin:myPass'
       })
@@ -193,7 +195,7 @@ describe('Function proxyForTunnel - String', () => {
   test('proxyForTunnel loginPass login password', () => {
     expect(
       proxyForTunnel({
-        ipAddress: '146.185.209.244',
+        host: '146.185.209.244',
         port: 9999,
         loginPass: 'myLogin:myPass',
         login: 'someMyLogin',
@@ -208,7 +210,7 @@ describe('Function proxyForTunnel - String', () => {
   test('proxyForTunnel NO login password', () => {
     expect(
       proxyForTunnel({
-        ipAddress: '146.185.209.244',
+        host: '146.185.209.244',
         port: 9999
       })
     ).toEqual({
@@ -216,24 +218,24 @@ describe('Function proxyForTunnel - String', () => {
       port: 9999
     });
   });
-  test('proxyForTunnel, NO login password, ipAddressPort in priority', () => {
+  test('proxyForTunnel, NO login password, hostPort in priority', () => {
     expect(
       proxyForTunnel({
-        ipAddress: '999.185.209.244',
+        host: '999.185.209.244',
         port: 1111,
-        ipAddressPort: '146.185.209.244:9999'
+        hostPort: '146.185.209.244:9999'
       })
     ).toEqual({
       host: '146.185.209.244',
       port: 9999
     });
   });
-  test('proxyForTunnel ALL, ipAddressPort and loginPass in priority', () => {
+  test('proxyForTunnel ALL, hostPort and loginPass in priority', () => {
     expect(
       proxyForTunnel({
-        ipAddress: '999.185.209.244',
+        host: '999.185.209.244',
         port: 1111,
-        ipAddressPort: '146.185.209.244:9999',
+        hostPort: '146.185.209.244:9999',
         loginPass: 'myLogin:myPass',
         login: 'someMyLogin',
         password: 'someMyPass'
@@ -250,7 +252,7 @@ describe('Function proxyForTunnel - Object wish empty', () => {
   test('proxyForTunnel empty login password', () => {
     expect(
       proxyForTunnel({
-        ipAddress: '146.185.209.244',
+        host: '146.185.209.244',
         port: 9999,
         login: '',
         password: ''
@@ -263,7 +265,7 @@ describe('Function proxyForTunnel - Object wish empty', () => {
   test('proxyForTunnel empty loginPass', () => {
     expect(
       proxyForTunnel({
-        ipAddress: '146.185.209.244',
+        host: '146.185.209.244',
         port: 9999,
         loginPass: ''
       })
@@ -275,7 +277,7 @@ describe('Function proxyForTunnel - Object wish empty', () => {
   test('proxyForTunnel empty loginPass login password', () => {
     expect(
       proxyForTunnel({
-        ipAddress: '146.185.209.244',
+        host: '146.185.209.244',
         port: 9999,
         loginPass: '',
         login: '',
@@ -286,12 +288,12 @@ describe('Function proxyForTunnel - Object wish empty', () => {
       port: 9999
     });
   });
-  test('proxyForTunnel ALL, ipAddressPort and loginPass in priority, empty login and pass', () => {
+  test('proxyForTunnel ALL, hostPort and loginPass in priority, empty login and pass', () => {
     expect(
       proxyForTunnel({
-        ipAddress: '999.185.209.244',
+        host: '999.185.209.244',
         port: 1111,
-        ipAddressPort: '146.185.209.244:9999',
+        hostPort: '146.185.209.244:9999',
         loginPass: '',
         login: '',
         password: ''

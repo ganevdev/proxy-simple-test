@@ -1,6 +1,6 @@
 {
   "name": "proxy-simple-test",
-  "version": "1.0.11",
+  "version": "1.1.11",
   "description": "Simple proxy testing.",
   "keywords": [
     "proxy"
@@ -29,7 +29,7 @@
   },
   "dependencies": {
     "got": "^9.6.0",
-    "split-proxy": "^1.0.3",
+    "split-proxy": "^2.0.0",
     "tunnel": "^0.0.6"
   },
   "devDependencies": {

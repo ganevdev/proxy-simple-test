@@ -3,9 +3,9 @@ import splitProxy from 'split-proxy';
 import tunnel from 'tunnel';
 
 interface ProxyObject {
-  ipAddress?: string;
+  host?: string;
   port?: number | string;
-  ipAddressPort?: string;
+  hostPort?: string;
   login?: string;
   password?: string;
   loginPass?: string;
@@ -64,19 +64,14 @@ function loginPass(proxy: ProxyObject): string {
 }
 
 function hostPort(proxy: ProxyObject): { host: string; port: number } {
-  if (proxy.ipAddressPort && proxy.ipAddressPort !== '') {
+  if (proxy.hostPort && proxy.hostPort !== '') {
     return {
-      host: splitProxy(proxy.ipAddressPort).ipAddress,
-      port: Number(splitProxy(proxy.ipAddressPort).port)
+      host: splitProxy(proxy.hostPort).host,
+      port: Number(splitProxy(proxy.hostPort).port)
     };
   }
-  if (
-    proxy.ipAddress &&
-    proxy.ipAddress !== '' &&
-    proxy.port &&
-    proxy.port !== ''
-  ) {
-    return { host: proxy.ipAddress, port: Number(proxy.port) };
+  if (proxy.host && proxy.host !== '' && proxy.port && proxy.port !== '') {
+    return { host: proxy.host, port: Number(proxy.port) };
   }
   return { host: '', port: NaN };
 }
@@ -90,7 +85,7 @@ interface ProxyForTunnel {
 function proxyFromString(proxy: ProxyObject | string): ProxyObject {
   if (typeof proxy === 'string') {
     return {
-      ipAddress: splitProxy(proxy).ipAddress,
+      host: splitProxy(proxy).host,
       port: splitProxy(proxy).port,
       login: splitProxy(proxy).login,
       password: splitProxy(proxy).password
@@ -147,7 +142,7 @@ async function proxySimpleTest(
 //   await console.log(
 //     await proxySimpleTest(
 //       {
-//         ipAddress: '146.185.209.255',
+//         host: '146.185.209.255',
 //         port: 8080,
 //         login: 'myLogin',
 //         password: 'myPass'
